@@ -98,11 +98,51 @@
 </template>
 
 <script>
+import axios from "axios";
 import PhoneInput from "@/components/PhoneInput.vue";
+
 
 export default {
   components: {
     PhoneInput,
+  },
+  data() {
+    return {
+      fullName: "", // Поле "Имя"
+      email: "", // Поле "Email"
+      phone: "", // Поле "Телефон"
+      companyName: "", // Поле "Название компании"
+      message: "", // Поле "Сообщение"
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        // Отправка данных на бэкенд
+        const response = await axios.post("http://http://139.59.129.146/api/send_mail.php", {
+          fullName: this.fullName,
+          email: this.email,
+          phone: this.phone,
+          companyName: this.companyName,
+          message: this.message,
+        });
+
+        // Успешная отправка
+        alert("Сообщение успешно отправлено!");
+        console.log(response.data);
+
+        // Сброс значений формы
+        this.fullName = "";
+        this.email = "";
+        this.phone = "";
+        this.companyName = "";
+        this.message = "";
+      } catch (error) {
+        // Обработка ошибки
+        console.error("Ошибка отправки формы:", error);
+        alert("Не удалось отправить сообщение. Попробуйте позже.");
+      }
+    },
   },
   mounted() {
     const titles = document.querySelectorAll('.section-title');

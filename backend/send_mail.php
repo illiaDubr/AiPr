@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    $to = "your-email@example.com";  
+    $to = "nivedy14@gmail.com";  
     $subject = "Новое сообщение с сайта";
     $body = "Имя: {$data['name']}\nEmail: {$data['email']}\n\nСообщение:\n{$data['message']}";
     $headers = "From: {$data['email']}\r\nReply-To: {$data['email']}\r\nContent-Type: text/plain; charset=UTF-8";
