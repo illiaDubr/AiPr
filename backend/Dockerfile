@@ -1,12 +1,24 @@
-FROM php:8.1-fpm-alpine
+# Используем базовый образ PHP
+FROM php:8.2-fpm
 
+# Устанавливаем необходимые расширения
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql
+
+# Устанавливаем Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Устанавливаем PHPMailer
 WORKDIR /var/www/html
+RUN composer require phpmailer/phpmailer
 
-# Скопируем ваш скрипт (send_mail.php и т.п.) в контейнер
+# Копируем код приложения внутрь контейнера
 COPY . /var/www/html
 
-# php-fpm по умолчанию слушает 9000 порт, 
-# его "expose" даём, чтобы Nginx мог связаться
+# Открываем порт PHP-FPM
 EXPOSE 9000
 
+# Запускаем PHP-FPM
 CMD ["php-fpm"]
