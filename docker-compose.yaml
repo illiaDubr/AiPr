@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  vue:
+    vue:
     image: node:18
     working_dir: /app
     volumes:
-      - ./vue:/app
+      - ./AiPr:/app
     command: sh -c "npm install && npm run build"
     depends_on:
       - php
