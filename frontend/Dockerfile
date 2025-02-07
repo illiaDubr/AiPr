@@ -1,24 +1,29 @@
-# Базовый образ Node.js
-FROM node:18
+# 1. Сборка проекта
+FROM node:18 AS build-stage
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем package.json и package-lock.json
+# Копируем файлы package.json и package-lock.json
 COPY package*.json ./
 
 # Устанавливаем зависимости
 RUN npm install
 
-# Копируем весь исходный код
+# Копируем исходный код Vue-приложения
 COPY . .
 
-# Сборка проекта
+# Собираем проект
 RUN npm run build
 
-# Используем Nginx для статического контента
-FROM nginx:latest
-COPY --from=0 /app/dist /usr/share/nginx/html
+# 2. Сервер Nginx для раздачи
+FROM nginx:latest AS production-stage
 
+# Копируем собранный проект в папку, откуда Nginx будет раздавать статику
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# Экспортируем порт 80
 EXPOSE 80
+
+# Запускаем Nginx
 CMD ["nginx", "-g", "daemon off;"]
