@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  vue:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./vue:/app
+    command: sh -c "npm install && npm run build"
+    depends_on:
+      - php
+
+  php:
+    image: php:8.2-fpm
+    volumes:
+      - ./backend:/var/www/html
+    expose:
+      - "9000"
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./backend:/var/www/html
+      - ./vue/dist:/var/www/html/frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+      - vue
