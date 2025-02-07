@@ -1,12 +1,12 @@
-# Базовый образ PHP с FPM
-FROM php:8.2-fpm
+FROM php:8.1-fpm-alpine
 
-# Копируем код PHP
 WORKDIR /var/www/html
-COPY . .
 
-# Устанавливаем необходимые PHP-расширения (если нужно)
-RUN docker-php-ext-install pdo pdo_mysql
+# Скопируем ваш скрипт (send_mail.php и т.п.) в контейнер
+COPY . /var/www/html
 
+# php-fpm по умолчанию слушает 9000 порт, 
+# его "expose" даём, чтобы Nginx мог связаться
 EXPOSE 9000
+
 CMD ["php-fpm"]

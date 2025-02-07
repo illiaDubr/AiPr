@@ -1,28 +1,20 @@
 version: '3.8'
 
 services:
-  frontend:
+  web:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-    depends_on:
-      - php
-
-  php:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    expose:
-      - "9000"
-
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    container_name: web
     ports:
       - "80:80"
     depends_on:
-      - frontend
-      - php
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    expose:
+      - "9000"
