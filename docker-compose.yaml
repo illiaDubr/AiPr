@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-    vue:
+  vue:
     image: node:18
     working_dir: /app
     volumes:
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./backend:/var/www/html
-      - ./vue/dist:/var/www/html/frontend
+      - ./AiPr/dist:/var/www/html/frontend
     ports:
       - "80:80"
     depends_on:
