@@ -34,7 +34,7 @@ if (empty($fullName) || empty($email) || empty($message)) {
 }
 
 // Адрес, куда отправлять почту
-$to      = "nivedy14@gmail.com"; // поменяйте на свой реальный Email
+$to = "r.demeyer@novali.energy, info@projectsc.ai";
 $subject = "SC.AI massage";
 $body    = "Name: $fullName\n"
          . "Email: $email\n"
