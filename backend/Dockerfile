@@ -13,7 +13,7 @@ RUN touch /var/log/msmtp.log && chmod 666 /var/log/msmtp.log
 
 
 COPY msmtprc /etc/msmtprc
-RUN chmod 644 /etc/msmtprc
+RUN chown 82:82 /etc/msmtprc && chmod 600 /etc/msmtprc
 
 COPY . /var/www/html
 
