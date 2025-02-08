@@ -46,11 +46,11 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
-    $mail->setFrom('your-email@gmail.com', 'Ваше Имя');
-    $mail->addAddress('recipient@example.com'); // Получатель
+    $mail->setFrom('fanmlbb15@gmail.com', 'Fanny');
+    $mail->addAddress('nivedy14@gmaill.com'); // Получатель
 
     $mail->isHTML(true);
-    $mail->Subject = 'Новое сообщение с сайта';
+    $mail->Subject = 'Massage frim site';
     $mail->Body = "
         <h1>New massage</h1>
         <p><strong>name:</strong> $fullName</p>
