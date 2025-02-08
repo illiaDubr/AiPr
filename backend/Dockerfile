@@ -1,18 +1,17 @@
 FROM php:8.1-fpm-alpine
 
-# Установим msmtp
 RUN apk update && apk add msmtp
 
-# Скажем PHP использовать msmtp вместо sendmail
 RUN echo "sendmail_path = /usr/bin/msmtp -t" > /usr/local/etc/php/conf.d/sendmail.ini
 
 WORKDIR /var/www/html
 
-# Скопируем файл msmtprc из backend/ в /etc/msmtprc контейнера
+# Создаём заранее файл логов, чтобы msmtp мог туда писать
+RUN touch /var/log/msmtp.log && chmod 666 /var/log/msmtp.log
+
 COPY msmtprc /etc/msmtprc
 RUN chmod 600 /etc/msmtprc
 
-# Скопируем остальной код (send_mail.php и т.д.)
 COPY . /var/www/html
 
 EXPOSE 9000
