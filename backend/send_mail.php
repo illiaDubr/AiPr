@@ -45,6 +45,10 @@ $body    = "Name: $fullName\n"
 $headers = "From: $email\r\n" .
            "Reply-To: $email\r\n";
 
+
+
+           file_put_contents('/var/www/html/debug-log.txt', "About to call mail()...\n", FILE_APPEND);
+
 // Пытаемся отправить почту
 if (mail($to, $subject, $body, $headers)) {
     echo json_encode([
