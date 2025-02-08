@@ -1,13 +1,16 @@
 version: '3.8'
 
-services:
+ervices:
   web:
     build:
       context: .
       dockerfile: Dockerfile.web
     container_name: web
     ports:
-      - "8080:80" # Теперь контейнер слушает порт 8080
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/yourdomain.com/fullchain.pem:/etc/ssl/certs/fullchain.pem:ro
+      - /etc/letsencrypt/live/yourdomain.com/privkey.pem:/etc/ssl/private/privkey.pem:ro
     depends_on:
       - backend
 
