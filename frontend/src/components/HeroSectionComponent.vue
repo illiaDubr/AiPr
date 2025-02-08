@@ -8,9 +8,9 @@
         loop
         muted
         playsinline
+        @loadeddata="onVideoLoaded"
     ></video>
 
-    <!-- Основной контент поверх видео -->
     <div class="hero-content">
       <h1 class="hero-title fade-in">
         Transforming science<span> with
@@ -238,7 +238,11 @@
 
 <script setup>
 import { onMounted } from 'vue';
+const emit = defineEmits(["videoLoaded"]);
 
+const onVideoLoaded = () => {
+  emit("videoLoaded");
+};
 onMounted(() => {
   const elements = document.querySelectorAll('.fade-in');
 
