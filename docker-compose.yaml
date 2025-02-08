@@ -7,7 +7,8 @@ services:
       dockerfile: Dockerfile.web
     container_name: web
     ports:
-      - "443:443"
+      - "80:80"
+      - "443:443" # HTTPS порт
     volumes:
       - /etc/letsencrypt/live/yourdomain.com/fullchain.pem:/etc/ssl/certs/fullchain.pem:ro
       - /etc/letsencrypt/live/yourdomain.com/privkey.pem:/etc/ssl/private/privkey.pem:ro
@@ -21,5 +22,3 @@ services:
     container_name: backend
     expose:
       - "9000"
-
-
