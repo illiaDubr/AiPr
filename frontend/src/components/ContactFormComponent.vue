@@ -119,7 +119,7 @@ export default {
     async handleSubmit() {
       try {
         // Отправка данных на бэкенд
-        const response = await axios.post("http://139.59.129.146/api/send_mail.php", {
+        const response = await axios.post("http://139.59.129.146/send_mail.php", {
           fullName: this.fullName,
           email: this.email,
           phone: this.phone,
