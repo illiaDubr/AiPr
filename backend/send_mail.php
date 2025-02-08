@@ -42,7 +42,7 @@ try {
     $mail->Host = 'smtp.gmail.com'; // Замените на ваш SMTP-сервер
     $mail->SMTPAuth = true;
     $mail->Username = 'fanmlbb15@gmail.com'; // Ваш email
-    $mail->Password = 'Dubrik220'; // Пароль от email
+    $mail->Password = 'zano fqzi cqgk vaem'; // Пароль от email
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
