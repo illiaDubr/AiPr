@@ -1,17 +1,5 @@
-<svg
-		width="100" height="100"
-		viewBox="0 0 100 100"
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
->
-	<rect width="100" height="100" fill="#070514"/>
-	<text
-			x="50%" y="50%"
-			font-family="Arial, sans-serif"
-			font-size="32"
-			font-weight="bold"
-			fill="#00BBFF"
-			text-anchor="middle"
-			dominant-baseline="middle"
-	>Sc.AI</text>
+<svg width="200" height="80" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<text x="10" y="50" font-family="Arial, sans-serif" font-size="40" fill="#00BBFF">[</text>
+	<text x="40" y="50" font-family="Arial, sans-serif" font-size="40" fill="white">Sc.AI</text>
+	<text x="150" y="50" font-family="Arial, sans-serif" font-size="40" fill="#00BBFF">]</text>
 </svg>
