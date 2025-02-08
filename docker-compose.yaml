@@ -7,7 +7,9 @@ services:
       dockerfile: Dockerfile.web
     container_name: web
     ports:
-      - "8080:80"
+      - "443:80" # Если SSL работает через HTTPS
+      # Или используйте другой порт, например:
+      # - "8080:80"
     depends_on:
       - backend
 
@@ -18,3 +20,4 @@ services:
     container_name: backend
     expose:
       - "9000"
+
