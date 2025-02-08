@@ -1,67 +1,58 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+header('Content-Type: application/json; charset=utf-8');
 
-require 'vendor/autoload.php';
-
-header("Content-Type: application/json; charset=UTF-8");
-
-// Проверяем метод запроса
+// Разрешаем только POST-запросы
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(["message" => "Not allowed method use POST."]);
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Method Not Allowed. Use POST.'
+    ]);
     exit;
 }
 
-// Читаем данные из запроса
-$data = json_decode(file_get_contents("php://input"), true);
+// Читаем JSON из тела запроса
+$data = json_decode(file_get_contents('php://input'), true);
 
-// Проверяем обязательные поля
-if (!isset($data['fullName'], $data['email'], $data['message'])) {
+// Извлекаем данные
+$fullName    = $data['fullName']    ?? '';
+$email       = $data['email']       ?? '';
+$phone       = $data['phone']       ?? '';
+$companyName = $data['companyName'] ?? '';
+$message     = $data['message']     ?? '';
+
+// Можно добавить валидацию обязательных полей
+if (empty($fullName) || empty($email) || empty($message)) {
     http_response_code(400);
-    echo json_encode(["message" => "Not full data."]);
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Invalid fields (fullName, email, message).'
+    ]);
     exit;
 }
 
-$fullName = htmlspecialchars($data['fullName']);
-$email = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
-$message = htmlspecialchars($data['message']);
+// Адрес, куда отправлять почту
+$to      = "nivedy14@gmail.com"; // поменяйте на свой реальный Email
+$subject = "SC.AI massage";
+$body    = "Name: $fullName\n"
+         . "Email: $email\n"
+         . "Phone: $phone\n"
+         . "Company: $companyName\n\n"
+         . "Message:\n$message\n";
 
-// Проверяем корректность email
-if (!$email) {
-    http_response_code(400);
-    echo json_encode(["message" => "incorrect email."]);
-    exit;
-}
+$headers = "From: $email\r\n" .
+           "Reply-To: $email\r\n";
 
-// Настройка PHPMailer
-$mail = new PHPMailer(true);
-
-try {
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com'; // Замените на ваш SMTP-сервер
-    $mail->SMTPAuth = true;
-    $mail->Username = 'fanmlbb15@gmail.com'; // Ваш email
-    $mail->Password = 'zano fqzi cqgk vaem'; // Пароль от email
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port = 587;
-
-    $mail->setFrom('fanmlbb15@gmail.com', 'Fanny');
-    $mail->addAddress('nivedy14@gmaill.com'); // Получатель
-
-    $mail->isHTML(true);
-    $mail->Subject = 'Massage frim site';
-    $mail->Body = "
-        <h1>New massage</h1>
-        <p><strong>name:</strong> $fullName</p>
-        <p><strong>Email:</strong> $email</p>
-        <p><strong>Massage:</strong><br>$message</p>
-    ";
-
-    $mail->send();
-    echo json_encode(["message" => "Mail send!"]);
-} catch (Exception $e) {
+// Пытаемся отправить почту
+if (mail($to, $subject, $body, $headers)) {
+    echo json_encode([
+        'status' => 'success',
+        'message' => 'success'
+    ]);
+} else {
     http_response_code(500);
-    echo json_encode(["message" => "Error: {$mail->ErrorInfo}"]);
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'error.'
+    ]);
 }
-?>

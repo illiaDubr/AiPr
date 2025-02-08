@@ -1,24 +1,15 @@
-# Используем базовый образ PHP
-FROM php:8.2-fpm
+FROM php:8.1-fpm-alpine
 
-# Устанавливаем необходимые расширения
-RUN apt-get update && apt-get install -y \
-    libzip-dev \
-    unzip \
-    && docker-php-ext-install pdo pdo_mysql
+# Устанавливаем необходимые расширения (если нужно работать с БД и т.п.)
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Устанавливаем Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Устанавливаем PHPMailer
+# Рабочая директория внутри контейнера
 WORKDIR /var/www/html
-RUN composer require phpmailer/phpmailer
 
-# Копируем код приложения внутрь контейнера
+# Копируем код бэкенда (наш send_mail.php и т.п.)
 COPY . /var/www/html
 
-# Открываем порт PHP-FPM
+# PHP-FPM обычно слушает 9000 порт
 EXPOSE 9000
 
-# Запускаем PHP-FPM
 CMD ["php-fpm"]
