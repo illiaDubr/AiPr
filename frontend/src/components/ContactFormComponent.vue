@@ -131,7 +131,7 @@ export default {
         alert("Sended sucesfull!");
         console.log(response.data);
 
-      //making comment like example
+      //making comment like example then add to git next conectig to digital ocean console try 1
         this.fullName = "";
         this.email = "";
         this.phone = "";
