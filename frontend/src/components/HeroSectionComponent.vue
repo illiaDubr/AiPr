@@ -18,7 +18,7 @@
         discovery
       </h1>
       <p class="hero-subtitle fade-in">
-        Our goal is to create an AI-platform capable of understanding the complex science that describes the physical<br>world, enabling it to generate new scientific discoveries based solely on text prompts.
+        Sc.AI is an AI-platform capable of understanding the complex science behind the physical<br>world, enabling it to generate new scientific discoveries based solely on text prompts.
       </p>
       <button class="hero-cta fade-in">Learn More<span aria-hidden="true" class="arrow"><span aria-hidden="true" class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M5.93167 11.9996L18.2773 11.9996" stroke="#0F1117" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
