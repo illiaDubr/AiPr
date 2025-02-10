@@ -108,17 +108,17 @@ export default {
   },
   data() {
     return {
-      fullName: "", // Поле "Имя"
-      email: "", // Поле "Email"
-      phone: "", // Поле "Телефон"
-      companyName: "", // Поле "Название компании"
-      message: "", // Поле "Сообщение"
+      fullName: "", 
+      email: "", 
+      phone: "", 
+      companyName: "", 
+      message: "", 
     };
   },
   methods: {
     async handleSubmit() {
       try {
-        // Отправка данных на бэкенд
+       
         const response = await axios.post("/send_mail.php", {
           fullName: this.fullName,
           email: this.email,
@@ -127,11 +127,11 @@ export default {
           message: this.message,
         });
 
-        // Успешная отправка
+       
         alert("Sended sucesfull!");
         console.log(response.data);
 
-        // Сброс значений формы
+      //making comment like example
         this.fullName = "";
         this.email = "";
         this.phone = "";
